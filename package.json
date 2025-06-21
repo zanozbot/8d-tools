@@ -1,0 +1,43 @@
+{
+  "name": "@zanozbot/8d-tools",
+  "version": "1.0.0",
+  "description": "A command-line tool for generating Eight Disciplines (8D) problem-solving reports from customizable templates.",
+  "scripts": {
+    "prepack": "tsc",
+    "test": "node --test './src/**/*.test.ts",
+    "types:check": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zanozbot/8d-tools.git"
+  },
+  "bin": {
+    "adr": "dist/main.js"
+  },
+  "types": "dist/main.d.ts",
+  "keywords": [
+    "8d",
+    "eight",
+    "disciplines",
+    "problem",
+    "solving",
+    "root",
+    "cause",
+    "analysis",
+    "quality",
+    "cli",
+    "markdown",
+    "generator",
+    "documentation",
+    "report"
+  ],
+  "author": "Žan Ožbot",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/zanozbot/8d-tools/issues"
+  },
+  "homepage": "https://github.com/zanozbot/8d-tools#readme",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
