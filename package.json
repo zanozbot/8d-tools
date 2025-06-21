@@ -4,9 +4,9 @@
   "type": "module",
   "description": "A command-line tool for generating Eight Disciplines (8D) problem-solving reports from customizable templates.",
   "scripts": {
-    "build": "npm run clean && tsc",
-    "test": "tsx --test './test/**/*.test.ts'",
-    "test:watch": "tsx --test --watch './test/**/*.test.ts'",
+    "build": "npm run clean && vite build",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "types:check": "tsc --noEmit",
     "clean": "rm -rf dist",
     "dev": "npm run build && node dist/main.js",
@@ -20,7 +20,6 @@
   "bin": {
     "8d": "dist/main.js"
   },
-  "types": "dist/main.d.ts",
   "keywords": [
     "8d",
     "eight",
@@ -45,8 +44,8 @@
   "homepage": "https://github.com/zanozbot/8d-tools#readme",
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
-    "tsx": "^4.19.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
   },
   "dependencies": {
     "chalk": "^5.4.1",

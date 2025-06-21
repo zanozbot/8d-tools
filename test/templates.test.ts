@@ -1,16 +1,12 @@
-import { test, describe } from "node:test";
-import { ok, strictEqual } from "node:assert";
+import { test, describe, expect } from "vitest";
 import fs from "fs-extra";
 import { join } from "path";
 import { tmpdir } from "os";
-import {
-  generateEightDTemplate,
-  TemplateData,
-} from "../dist/templates/default.js";
+import { generateEightDTemplate, TemplateData } from "../src/templates/default";
 import {
   generateSimpleTemplate,
   SimpleTemplateData,
-} from "../dist/templates/simple.js";
+} from "../src/templates/simple";
 
 describe("Template Tests", () => {
   let tempDir: string;
@@ -34,31 +30,33 @@ describe("Template Tests", () => {
       const result = generateEightDTemplate(data);
 
       // Check header
-      ok(result.includes("# 0001: Manufacturing Defect"));
-      ok(result.includes("**Date:** 2025-01-15"));
-      ok(result.includes("**Status:** Draft"));
+      expect(result).toContain("# 0001: Manufacturing Defect");
+      expect(result).toContain("**Date:** 2025-01-15");
+      expect(result).toContain("**Status:** Draft");
 
       // Check all 8D sections are present
-      ok(result.includes("## D0: Plan and prepare"));
-      ok(result.includes("## D1: Form a team"));
-      ok(result.includes("## D2: Identify the problem"));
-      ok(result.includes("## D3: Develop interim containment plan"));
-      ok(result.includes("## D4: Verify root causes and escape points"));
-      ok(result.includes("## D5: Choose permanent corrective actions"));
-      ok(result.includes("## D6: Implement corrective actions"));
-      ok(result.includes("## D7: Take preventive measures"));
-      ok(result.includes("## D8: Celebrate with your team"));
+      expect(result).toContain("## D0: Plan and prepare");
+      expect(result).toContain("## D1: Form a team");
+      expect(result).toContain("## D2: Identify the problem");
+      expect(result).toContain("## D3: Develop interim containment plan");
+      expect(result).toContain("## D4: Verify root causes and escape points");
+      expect(result).toContain("## D5: Choose permanent corrective actions");
+      expect(result).toContain("## D6: Implement corrective actions");
+      expect(result).toContain("## D7: Take preventive measures");
+      expect(result).toContain("## D8: Celebrate with your team");
 
       // Check specific subsections
-      ok(result.includes("### Problem background"));
-      ok(result.includes("### Team members"));
-      ok(result.includes("### 5W2H analysis"));
-      ok(result.includes("### Root cause analysis"));
-      ok(result.includes("### Implementation plan"));
-      ok(result.includes("### Team recognition"));
+      expect(result).toContain("### Problem background");
+      expect(result).toContain("### Team members");
+      expect(result).toContain("### 5W2H analysis");
+      expect(result).toContain("### Root cause analysis");
+      expect(result).toContain("### Implementation plan");
+      expect(result).toContain("### Team recognition");
 
       // Check footer
-      ok(result.includes("*This 8D report was generated using [8d-tools]"));
+      expect(result).toContain(
+        "*This 8D report was generated using [8d-tools]"
+      );
     });
 
     test("should include links section when links provided", () => {
@@ -74,16 +72,12 @@ describe("Template Tests", () => {
 
       const result = generateEightDTemplate(data);
 
-      ok(result.includes("## Links"));
-      ok(
-        result.includes(
-          "- Supersedes: [0001: Original Quality Issue](./0001-original-quality-issue.md)"
-        )
+      expect(result).toContain("## Links");
+      expect(result).toContain(
+        "- Supersedes: [0001: Original Quality Issue](./0001-original-quality-issue.md)"
       );
-      ok(
-        result.includes(
-          "- Related to: [0003: Process Improvement](./0003-process-improvement.md)"
-        )
+      expect(result).toContain(
+        "- Related to: [0003: Process Improvement](./0003-process-improvement.md)"
       );
     });
 
@@ -96,7 +90,7 @@ describe("Template Tests", () => {
 
       const result = generateEightDTemplate(data);
 
-      ok(!result.includes("## Links"));
+      expect(result).not.toContain("## Links");
     });
   });
 
@@ -111,45 +105,41 @@ describe("Template Tests", () => {
       const result = generateSimpleTemplate(data);
 
       // Check header
-      ok(result.includes("# 0004: Quick Fix Required"));
-      ok(result.includes("**Date:** 2025-01-15"));
-      ok(result.includes("**Status:** Draft"));
+      expect(result).toContain("# 0004: Quick Fix Required");
+      expect(result).toContain("**Date:** 2025-01-15");
+      expect(result).toContain("**Status:** Draft");
 
       // Check simple sections
-      ok(result.includes("## D0: Planning"));
-      ok(result.includes("## D1: Team members"));
-      ok(result.includes("## D2: Problem statement & description"));
-      ok(result.includes("## D4: Root cause & escape points"));
-      ok(result.includes("## D7: Preventive measures"));
+      expect(result).toContain("## D0: Planning");
+      expect(result).toContain("## D1: Team members");
+      expect(result).toContain("## D2: Problem statement & description");
+      expect(result).toContain("## D4: Root cause & escape points");
+      expect(result).toContain("## D7: Preventive measures");
 
       // Check comments are present
-      ok(
-        result.includes(
-          "<!-- Gather data, feedback, and prerequisites required to solve the problem. -->"
-        )
+      expect(result).toContain(
+        "<!-- Gather data, feedback, and prerequisites required to solve the problem. -->"
       );
-      ok(result.includes("<!-- List team members and their roles -->"));
-      ok(
-        result.includes("<!-- Describe the problem clearly and concisely -->")
+      expect(result).toContain("<!-- List team members and their roles -->");
+      expect(result).toContain(
+        "<!-- Describe the problem clearly and concisely -->"
       );
-      ok(
-        result.includes(
-          "<!-- Identify all possible root causes and escape points for the problem. -->"
-        )
+      expect(result).toContain(
+        "<!-- Identify all possible root causes and escape points for the problem. -->"
       );
-      ok(
-        result.includes(
-          "<!-- Describe any measure to implement to avoid similar problems in the future. -->"
-        )
+      expect(result).toContain(
+        "<!-- Describe any measure to implement to avoid similar problems in the future. -->"
       );
 
       // Check footer
-      ok(result.includes("*This 8D report was generated using [8d-tools]"));
+      expect(result).toContain(
+        "*This 8D report was generated using [8d-tools]"
+      );
 
       // Ensure it doesn't include detailed 8D subsections from default template
-      ok(!result.includes("### Problem background"));
-      ok(!result.includes("### 5W2H analysis"));
-      ok(!result.includes("### Potential root causes"));
+      expect(result).not.toContain("### Problem background");
+      expect(result).not.toContain("### 5W2H analysis");
+      expect(result).not.toContain("### Potential root causes");
     });
 
     test("should include links section when links provided", () => {
@@ -162,11 +152,9 @@ describe("Template Tests", () => {
 
       const result = generateSimpleTemplate(data);
 
-      ok(result.includes("## Links"));
-      ok(
-        result.includes(
-          "- Amends: [0004: Original Fix](./0004-original-fix.md)"
-        )
+      expect(result).toContain("## Links");
+      expect(result).toContain(
+        "- Amends: [0004: Original Fix](./0004-original-fix.md)"
       );
     });
 
@@ -180,7 +168,7 @@ describe("Template Tests", () => {
 
       const result = generateSimpleTemplate(data);
 
-      ok(!result.includes("## Links"));
+      expect(result).not.toContain("## Links");
     });
   });
 
@@ -195,7 +183,7 @@ describe("Template Tests", () => {
       const defaultResult = generateEightDTemplate(data);
       const simpleResult = generateSimpleTemplate(data);
 
-      ok(defaultResult.length > simpleResult.length);
+      expect(defaultResult.length).toBeGreaterThan(simpleResult.length);
     });
 
     test("both templates should have consistent header format", () => {
@@ -209,14 +197,14 @@ describe("Template Tests", () => {
       const simpleResult = generateSimpleTemplate(data);
 
       // Both should have the same header format
-      ok(defaultResult.includes("# 0007: Consistency Test"));
-      ok(simpleResult.includes("# 0007: Consistency Test"));
+      expect(defaultResult).toContain("# 0007: Consistency Test");
+      expect(simpleResult).toContain("# 0007: Consistency Test");
 
-      ok(defaultResult.includes("**Date:** 2025-01-15"));
-      ok(simpleResult.includes("**Date:** 2025-01-15"));
+      expect(defaultResult).toContain("**Date:** 2025-01-15");
+      expect(simpleResult).toContain("**Date:** 2025-01-15");
 
-      ok(defaultResult.includes("**Status:** Draft"));
-      ok(simpleResult.includes("**Status:** Draft"));
+      expect(defaultResult).toContain("**Status:** Draft");
+      expect(simpleResult).toContain("**Status:** Draft");
     });
 
     test("both templates should handle special characters in titles", () => {
@@ -229,15 +217,11 @@ describe("Template Tests", () => {
       const defaultResult = generateEightDTemplate(data);
       const simpleResult = generateSimpleTemplate(data);
 
-      ok(
-        defaultResult.includes(
-          '# 0008: Problem with "Quotes" & Special Characters!'
-        )
+      expect(defaultResult).toContain(
+        '# 0008: Problem with "Quotes" & Special Characters!'
       );
-      ok(
-        simpleResult.includes(
-          '# 0008: Problem with "Quotes" & Special Characters!'
-        )
+      expect(simpleResult).toContain(
+        '# 0008: Problem with "Quotes" & Special Characters!'
       );
     });
   });

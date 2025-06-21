@@ -1,16 +1,12 @@
-import { test, describe } from "node:test";
-import { ok, strictEqual } from "node:assert";
+import { test, describe, expect } from "vitest";
 import fs from "fs-extra";
 import { join } from "path";
 import { tmpdir } from "os";
-import { generateEightDTemplate } from "../dist/templates/default.js";
-import { generateSimpleTemplate } from "../dist/templates/simple.js";
-import {
-  formatSequenceNumber,
-  generateFileName,
-} from "../dist/utils/fileUtils.js";
-import { generateReportFromTemplate } from "../dist/utils/templateUtils.js";
-import { getReverseLink } from "../dist/utils/linkUtils.js";
+import { generateEightDTemplate } from "../src/templates/default";
+import { generateSimpleTemplate } from "../src/templates/simple";
+import { formatSequenceNumber, generateFileName } from "../src/utils/fileUtils";
+import { generateReportFromTemplate } from "../src/utils/templateUtils";
+import { getReverseLink } from "../src/utils/linkUtils";
 
 describe("8D Tools Tests", () => {
   let tempDir: string;
@@ -33,11 +29,11 @@ describe("8D Tools Tests", () => {
 
       const result = generateEightDTemplate(templateData);
 
-      ok(result.includes("# 0001: Test Problem"));
-      ok(result.includes("**Date:** 2025-01-01"));
-      ok(result.includes("## D0: Plan and prepare"));
-      ok(result.includes("## D1: Form a team"));
-      ok(result.includes("## D8: Celebrate with your team"));
+      expect(result).toContain("# 0001: Test Problem");
+      expect(result).toContain("**Date:** 2025-01-01");
+      expect(result).toContain("## D0: Plan and prepare");
+      expect(result).toContain("## D1: Form a team");
+      expect(result).toContain("## D8: Celebrate with your team");
     });
 
     test("should include links when provided", () => {
@@ -52,11 +48,9 @@ describe("8D Tools Tests", () => {
 
       const result = generateEightDTemplate(templateData);
 
-      ok(result.includes("## Links"));
-      ok(
-        result.includes(
-          "- Supersedes: [0001: Previous Problem](./0001-previous-problem.md)"
-        )
+      expect(result).toContain("## Links");
+      expect(result).toContain(
+        "- Supersedes: [0001: Previous Problem](./0001-previous-problem.md)"
       );
     });
 
@@ -69,13 +63,13 @@ describe("8D Tools Tests", () => {
 
       const result = generateSimpleTemplate(templateData);
 
-      ok(result.includes("# 0003: Simple Test Problem"));
-      ok(result.includes("**Date:** 2025-01-01"));
-      ok(result.includes("## D0: Planning"));
-      ok(result.includes("## D2: Problem statement & description"));
-      ok(result.includes("## D4: Root cause & escape points"));
-      ok(result.includes("## D5: Permanent corrective action"));
-      ok(result.includes("## D7: Preventive measures"));
+      expect(result).toContain("# 0003: Simple Test Problem");
+      expect(result).toContain("**Date:** 2025-01-01");
+      expect(result).toContain("## D0: Planning");
+      expect(result).toContain("## D2: Problem statement & description");
+      expect(result).toContain("## D4: Root cause & escape points");
+      expect(result).toContain("## D5: Permanent corrective action");
+      expect(result).toContain("## D7: Preventive measures");
     });
 
     test("should include links in simple template when provided", () => {
@@ -90,11 +84,9 @@ describe("8D Tools Tests", () => {
 
       const result = generateSimpleTemplate(templateData);
 
-      ok(result.includes("## Links"));
-      ok(
-        result.includes(
-          "- Related to: [0003: Previous Simple Problem](./0003-previous-simple-problem.md)"
-        )
+      expect(result).toContain("## Links");
+      expect(result).toContain(
+        "- Related to: [0003: Previous Simple Problem](./0003-previous-simple-problem.md)"
       );
     });
   });
@@ -102,7 +94,7 @@ describe("8D Tools Tests", () => {
   describe("Template Utilities (Unit Tests)", () => {
     // These tests need 8D initialization for custom template support
     test("initialize 8D for template utilities", async () => {
-      const { initCommand } = await import("../dist/commands/init.js");
+      const { initCommand } = await import("../src/commands/init");
       await initCommand("test-8d");
     });
 
@@ -116,14 +108,12 @@ describe("8D Tools Tests", () => {
 
       const result = await generateReportFromTemplate("default", data);
 
-      ok(result.includes("# 0001: Test Report"));
-      ok(result.includes("**Date:** 2025-01-01"));
-      ok(result.includes("## D0: Plan and prepare"));
-      ok(result.includes("## Links"));
-      ok(
-        result.includes(
-          "- Related to: [0002: Other Report](./0002-other-report.md)"
-        )
+      expect(result).toContain("# 0001: Test Report");
+      expect(result).toContain("**Date:** 2025-01-01");
+      expect(result).toContain("## D0: Plan and prepare");
+      expect(result).toContain("## Links");
+      expect(result).toContain(
+        "- Related to: [0002: Other Report](./0002-other-report.md)"
       );
     });
 
@@ -136,13 +126,13 @@ describe("8D Tools Tests", () => {
 
       const result = await generateReportFromTemplate("simple", data);
 
-      ok(result.includes("# 0002: Simple Test"));
-      ok(result.includes("**Date:** 2025-01-01"));
-      ok(result.includes("## D0: Planning"));
-      ok(result.includes("## D2: Problem statement & description"));
-      ok(result.includes("## D4: Root cause & escape points"));
-      ok(result.includes("## D5: Permanent corrective action"));
-      ok(result.includes("## D7: Preventive measures"));
+      expect(result).toContain("# 0002: Simple Test");
+      expect(result).toContain("**Date:** 2025-01-01");
+      expect(result).toContain("## D0: Planning");
+      expect(result).toContain("## D2: Problem statement & description");
+      expect(result).toContain("## D4: Root cause & escape points");
+      expect(result).toContain("## D5: Permanent corrective action");
+      expect(result).toContain("## D7: Preventive measures");
     });
 
     // Note: Testing nonexistent templates requires 8D directory setup
@@ -151,44 +141,41 @@ describe("8D Tools Tests", () => {
 
   describe("Link Utilities", () => {
     test("should return correct reverse links", () => {
-      strictEqual(getReverseLink("Supersedes"), "Superseded by");
-      strictEqual(getReverseLink("Superseded by"), "Supersedes");
-      strictEqual(getReverseLink("Related to"), "Related to");
-      strictEqual(getReverseLink("Amends"), "Amended by");
-      strictEqual(getReverseLink("Amended by"), "Amends");
-      strictEqual(getReverseLink("Clarifies"), "Clarified by");
-      strictEqual(getReverseLink("Clarified by"), "Clarifies");
-      strictEqual(getReverseLink("Extends"), "Extended by");
-      strictEqual(getReverseLink("Extended by"), "Extends");
+      expect(getReverseLink("Supersedes")).toBe("Superseded by");
+      expect(getReverseLink("Superseded by")).toBe("Supersedes");
+      expect(getReverseLink("Related to")).toBe("Related to");
+      expect(getReverseLink("Amends")).toBe("Amended by");
+      expect(getReverseLink("Amended by")).toBe("Amends");
+      expect(getReverseLink("Clarifies")).toBe("Clarified by");
+      expect(getReverseLink("Clarified by")).toBe("Clarifies");
+      expect(getReverseLink("Extends")).toBe("Extended by");
+      expect(getReverseLink("Extended by")).toBe("Extends");
     });
 
     test("should return default reverse link for unknown types", () => {
-      strictEqual(getReverseLink("Unknown Type"), "Related to");
-      strictEqual(getReverseLink("Custom Link"), "Related to");
+      expect(getReverseLink("Unknown Type")).toBe("Related to");
+      expect(getReverseLink("Custom Link")).toBe("Related to");
     });
   });
 
   describe("Utility Functions", () => {
     test("should format sequence numbers correctly", () => {
-      strictEqual(formatSequenceNumber(1), "0001");
-      strictEqual(formatSequenceNumber(42), "0042");
-      strictEqual(formatSequenceNumber(999), "0999");
-      strictEqual(formatSequenceNumber(1000), "1000");
+      expect(formatSequenceNumber(1)).toBe("0001");
+      expect(formatSequenceNumber(42)).toBe("0042");
+      expect(formatSequenceNumber(999)).toBe("0999");
+      expect(formatSequenceNumber(1000)).toBe("1000");
     });
 
     test("should generate valid filenames", () => {
-      strictEqual(
-        generateFileName(1, "Product Quality Issue"),
+      expect(generateFileName(1, "Product Quality Issue")).toBe(
         "0001-product-quality-issue.md"
       );
 
-      strictEqual(
-        generateFileName(42, "Complex Problem with Special Characters!@#"),
-        "0042-complex-problem-with-special-characters.md"
-      );
+      expect(
+        generateFileName(42, "Complex Problem with Special Characters!@#")
+      ).toBe("0042-complex-problem-with-special-characters.md");
 
-      strictEqual(
-        generateFileName(5, "Multiple   Spaces   and---Dashes"),
+      expect(generateFileName(5, "Multiple   Spaces   and---Dashes")).toBe(
         "0005-multiple-spaces-and-dashes.md"
       );
     });
@@ -199,13 +186,13 @@ describe("8D Tools Tests", () => {
 
     test("should create temporary directory for testing", async () => {
       tempDir = await fs.mkdtemp(join(tmpdir(), "8d-test-"));
-      ok(await fs.pathExists(tempDir));
+      expect(await fs.pathExists(tempDir)).toBe(true);
     });
 
     test("should clean up temporary directory", async () => {
       if (tempDir) {
         await fs.remove(tempDir);
-        ok(!(await fs.pathExists(tempDir)));
+        expect(await fs.pathExists(tempDir)).toBe(false);
       }
     });
   });

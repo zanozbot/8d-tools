@@ -1,10 +1,9 @@
-import { test, describe } from "node:test";
-import { ok, strictEqual } from "node:assert";
+import { test, describe, expect } from "vitest";
 import fs from "fs-extra";
 import { join } from "path";
 import { tmpdir } from "os";
-import { linkCommand } from "../dist/commands/link.js";
-import { initCommand } from "../dist/commands/init.js";
+import { linkCommand } from "../src/commands/link";
+import { initCommand } from "../src/commands/init";
 
 describe("Command Tests", () => {
   let tempDir: string;
@@ -23,33 +22,33 @@ describe("Command Tests", () => {
 
       // Check if .8d-dir file was created
       const adrDirFile = join(tempDir, ".8d-dir");
-      ok(await fs.pathExists(adrDirFile));
+      expect(await fs.pathExists(adrDirFile)).toBe(true);
 
       const adrDirContent = await fs.readFile(adrDirFile, "utf8");
-      strictEqual(adrDirContent.trim(), "test-8d");
+      expect(adrDirContent.trim()).toBe("test-8d");
 
       // Check if 8D directory was created
       const eightDDir = join(tempDir, "test-8d");
-      ok(await fs.pathExists(eightDDir));
+      expect(await fs.pathExists(eightDDir)).toBe(true);
 
       // Check if sequence lock file was created
       const sequenceLockFile = join(eightDDir, ".8d-sequence.lock");
-      ok(await fs.pathExists(sequenceLockFile));
+      expect(await fs.pathExists(sequenceLockFile)).toBe(true);
 
       const sequenceContent = await fs.readFile(sequenceLockFile, "utf8");
-      strictEqual(sequenceContent.trim(), "0");
+      expect(sequenceContent.trim()).toBe("0");
 
       // Check if README.md was created
       const readmeFile = join(eightDDir, "README.md");
-      ok(await fs.pathExists(readmeFile));
+      expect(await fs.pathExists(readmeFile)).toBe(true);
 
       const readmeContent = await fs.readFile(readmeFile, "utf8");
-      ok(readmeContent.includes("# 8D Problem-Solving Reports"));
-      ok(readmeContent.includes("Eight Disciplines (8D)"));
+      expect(readmeContent).toContain("# 8D Problem-Solving Reports");
+      expect(readmeContent).toContain("Eight Disciplines (8D)");
 
       // Check if .templates directory was created
       const templatesDir = join(eightDDir, ".templates");
-      ok(await fs.pathExists(templatesDir));
+      expect(await fs.pathExists(templatesDir)).toBe(true);
     });
 
     test("should use default directory when none specified", async () => {
@@ -61,13 +60,13 @@ describe("Command Tests", () => {
 
       // Check if default directory was used
       const adrDirFile = join(tempDir, ".8d-dir");
-      ok(await fs.pathExists(adrDirFile));
+      expect(await fs.pathExists(adrDirFile)).toBe(true);
 
       const adrDirContent = await fs.readFile(adrDirFile, "utf8");
-      strictEqual(adrDirContent.trim(), "docs/8d");
+      expect(adrDirContent.trim()).toBe("docs/8d");
 
       const defaultDir = join(tempDir, "docs/8d");
-      ok(await fs.pathExists(defaultDir));
+      expect(await fs.pathExists(defaultDir)).toBe(true);
     });
   });
 
@@ -79,11 +78,11 @@ describe("Command Tests", () => {
 
       // This should not throw an error about missing parameters
       const linkFn = linkCommand;
-      strictEqual(typeof linkFn, "function");
+      expect(typeof linkFn).toBe("function");
 
       // Check that the function has the correct parameter count
       // (source, target, linkType = 'Supersedes')
-      strictEqual(linkFn.length, 2); // Only required parameters count
+      expect(linkFn.length).toBe(2); // Only required parameters count
     });
   });
 
@@ -92,7 +91,7 @@ describe("Command Tests", () => {
     process.chdir(originalCwd);
     if (tempDir) {
       await fs.remove(tempDir);
-      ok(!(await fs.pathExists(tempDir)));
+      expect(await fs.pathExists(tempDir)).toBe(false);
     }
   });
 });
