@@ -58,8 +58,18 @@ The eight disciplines are:
     await fs.writeFile(tocFile, tocContent);
     console.log(chalk.green('Created table of contents (README.md)'));
 
+    // Create templates directory for custom templates
+    const templatesDir = path.join(absoluteDir, '.templates');
+    await fs.ensureDir(templatesDir);
+    console.log(chalk.green('Created .templates directory'));
+
     console.log(chalk.blue.bold('\n✅ 8D directory structure initialized successfully!'));
-    console.log(chalk.blue(`You can now create your first 8D report with: 8d new "Your Problem Title"`));
+    console.log(chalk.blue(`Directory: ${directory}`));
+    console.log(chalk.yellow('\nNext steps:'));
+    console.log(chalk.yellow('1. Create your first 8D report: 8d new "Problem Title"'));
+    console.log(chalk.yellow('2. Try the simple template: 8d new "Quick Report" -t simple'));
+    console.log(chalk.yellow('3. List available templates: 8d template list'));
+    console.log(chalk.yellow('4. Use "8d help" for more commands\n'));
 
   } catch (error) {
     console.error(chalk.red('Error initializing 8D directory:'), error);

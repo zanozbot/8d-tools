@@ -4,6 +4,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as os from 'os';
 import { generateEightDTemplate } from '../src/templates/default';
+import { generateSimpleTemplate } from '../src/templates/simple';
 import { formatSequenceNumber, generateFileName } from '../src/utils/fileUtils';
 
 describe('8D Tools Tests', () => {
@@ -37,6 +38,38 @@ describe('8D Tools Tests', () => {
 
       assert.ok(result.includes('## Links'));
       assert.ok(result.includes('- Supersedes: [0001: Previous Problem](./0001-previous-problem.md)'));
+    });
+
+    test('should generate a valid simple template', () => {
+      const templateData = {
+        title: 'Simple Test Problem',
+        sequence: '0003',
+        date: '2025-01-01'
+      };
+
+      const result = generateSimpleTemplate(templateData);
+
+      assert.ok(result.includes('# 0003: Simple Test Problem'));
+      assert.ok(result.includes('**Date:** 2025-01-01'));
+      assert.ok(result.includes('## Problem Description'));
+      assert.ok(result.includes('## Root Cause Analysis'));
+      assert.ok(result.includes('## Solution'));
+      assert.ok(result.includes('## Prevention'));
+      assert.ok(result.includes('## Lessons Learned'));
+    });
+
+    test('should include links in simple template when provided', () => {
+      const templateData = {
+        title: 'Simple Test Problem',
+        sequence: '0004',
+        date: '2025-01-01',
+        links: ['- Related to: [0003: Previous Simple Problem](./0003-previous-simple-problem.md)']
+      };
+
+      const result = generateSimpleTemplate(templateData);
+
+      assert.ok(result.includes('## Links'));
+      assert.ok(result.includes('- Related to: [0003: Previous Simple Problem](./0003-previous-simple-problem.md)'));
     });
   });
 

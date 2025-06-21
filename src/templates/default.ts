@@ -9,14 +9,13 @@ export function generateEightDTemplate(data: TemplateData): string {
   const { title, sequence, date, links = [] } = data;
   
   const linksSection = links.length > 0 
-    ? `\n## Links\n\n${links.join('\n')}\n`
+    ? `\n## Links\n\n${links.join('\n')}`
     : '';
 
   return `# ${sequence}: ${title}
 
 **Date:** ${date}  
 **Status:** Draft
-
 ${linksSection}
 ## D0: Plan and Prepare
 

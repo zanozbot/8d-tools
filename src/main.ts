@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import chalk from 'chalk';
 import { helpCommand } from './commands/help';
 import { initCommand } from './commands/init';
 import { newCommand } from './commands/new';
 import { linkCommand } from './commands/link';
+import { templateCommand } from './commands/template';
 
 const program = new Command();
 
@@ -33,6 +33,7 @@ program
   .argument('<title>', 'Title of the 8D report')
   .option('-s, --supersede <number>', 'Supersede an existing 8D report by number')
   .option('-l, --link <link>', 'Link to existing 8D report (format: "number:LinkType:ReverseLink")')
+  .option('-t, --template <name>', 'Template to use (default: "default")')
   .description('Create a new 8D report')
   .action(newCommand);
 
@@ -41,9 +42,18 @@ program
   .command('link')
   .argument('<source>', 'Source 8D report number')
   .argument('<target>', 'Target 8D report number')
-  .argument('<linkType>', 'Type of link (e.g., "Related to", "Supersedes")')
+  .argument('[linkType]', 'Type of link (default: "Supersedes")')
   .description('Link two existing 8D reports')
   .action(linkCommand);
+
+// Template command
+program
+  .command('template')
+  .argument('[action]', 'Action to perform (list, create, show, delete)')
+  .argument('[name]', 'Template name')
+  .option('--title <title>', 'Custom title for template creation')
+  .description('Manage 8D report templates')
+  .action(templateCommand);
 
 // Default help when no command is provided
 program.action(() => {

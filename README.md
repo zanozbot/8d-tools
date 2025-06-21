@@ -40,6 +40,8 @@ npm install -g @zanozbot/8d-tools
    8d help
    ```
 
+For detailed usage instructions, see [docs/USAGE.md](docs/USAGE.md).
+
 ## Commands
 
 ### `8d help`
@@ -71,26 +73,50 @@ Creates a new 8D report with sequential numbering.
 **Options:**
 - `-s, --supersede <number>`: Supersede an existing 8D report
 - `-l, --link <link>`: Link to existing report (format: "number:LinkType:ReverseLink")
+- `-t, --template <name>`: Template to use (default: "default")
 
 **Examples:**
 ```bash
 8d new "Product Quality Issue"
 8d new "Updated Process" -s 3
 8d new "Related Issue" -l "2:Related to:Related to"
+8d new "Simple incident" -t simple
 ```
 
-### `8d link <source> <target> <linkType>`
+### `8d link <source> <target> [linkType]`
 Links two existing 8D reports.
 
 **Arguments:**
 - `source`: Source 8D report number
-- `target`: Target 8D report number  
-- `linkType`: Type of link (e.g., "Related to", "Supersedes")
+- `target`: Target 8D report number
+- `linkType` (optional): Type of link (default: "Supersedes")
 
 **Examples:**
 ```bash
+8d link 1 2              # Uses default "Supersedes"
 8d link 1 2 "Related to"
 8d link 3 4 "Supersedes"
+```
+
+### `8d template [action] [name] [options]`
+Manage 8D report templates.
+
+**Actions:**
+- `list`: List all available templates
+- `create <name>`: Create a new custom template
+- `show <name>`: Display template content
+- `delete <name>`: Delete a custom template
+
+**Options for create:**
+- `--title <title>`: Set a custom title (default: uses {{title}} placeholder)
+
+**Examples:**
+```bash
+8d template list                                    # List all templates
+8d template create incident                         # Create template with {{title}} placeholder
+8d template create security --title "Security Incident"  # Create with fixed title
+8d template show simple                             # Display simple template
+8d template delete incident                         # Delete custom template
 ```
 
 ## File Structure
@@ -102,15 +128,22 @@ project-root/
 ├── .8d-dir                    # Points to 8D directory
 └── docs/8d/                   # Default 8D directory
     ├── .8d-sequence.lock      # Tracks sequence numbers
+    ├── .templates/            # Custom templates directory
+    │   ├── incident.md        # Custom incident template
+    │   └── security.md        # Custom security template
     ├── README.md              # Table of contents
     ├── 0001-first-issue.md    # First 8D report
     └── 0002-second-issue.md   # Second 8D report
 ```
 
-## Report Template
+## Templates
 
-Each 8D report follows a comprehensive template covering all eight disciplines:
+8D-tools supports multiple templates to suit different problem-solving needs:
 
+### Built-in Templates
+
+#### Default Template (`default`)
+The comprehensive 8D template covering all eight disciplines:
 - **Header**: Title, date, status, and links
 - **D0**: Planning and preparation
 - **D1**: Team formation
@@ -121,6 +154,82 @@ Each 8D report follows a comprehensive template covering all eight disciplines:
 - **D6**: Implementation planning
 - **D7**: Preventive measures
 - **D8**: Team celebration and lessons learned
+
+#### Simple Template (`simple`)
+A streamlined template for quick problem-solving:
+- **Header**: Title, date, status, and links
+- **Problem Description**: Clear problem statement
+- **Root Cause Analysis**: Identify the root cause
+- **Solution**: Describe the implemented solution
+- **Prevention**: Measures to prevent recurrence
+- **Lessons Learned**: Key takeaways
+
+### Using Templates
+
+```bash
+# Use default template (comprehensive 8D)
+8d new "Complex Quality Issue"
+
+# Use simple template (streamlined)
+8d new "Simple incident" -t simple
+
+# List available templates
+8d template list
+```
+
+### Custom Templates
+
+You can create custom templates for specific use cases:
+
+```bash
+# Create a new custom template
+8d template create incident
+
+# Create with a fixed title
+8d template create security --title "Security Incident Report"
+
+# View template content
+8d template show incident
+
+# Delete custom template
+8d template delete incident
+```
+
+#### Template Placeholders
+
+Custom templates support these placeholders:
+- `{{title}}`: Report title
+- `{{sequence}}`: Report sequence number (e.g., "0001")
+- `{{date}}`: Creation date
+- `{{links}}`: Links section (automatically populated)
+
+#### Example Custom Template
+
+```markdown
+# {{title}}
+
+**Date:** {{date}}
+**Status:** Draft
+{{links}}
+
+## Incident Summary
+<!-- Brief description of the incident -->
+
+## Impact Assessment
+<!-- What was affected and how -->
+
+## Timeline
+<!-- Chronological sequence of events -->
+
+## Root Cause
+<!-- Primary cause of the incident -->
+
+## Resolution
+<!-- Steps taken to resolve -->
+
+## Follow-up Actions
+<!-- Preventive measures and monitoring -->
+```
 
 ## Linking Reports
 

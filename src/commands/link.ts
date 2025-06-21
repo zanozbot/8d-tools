@@ -2,8 +2,9 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import chalk from 'chalk';
 import { getEightDConfig, formatSequenceNumber } from '../utils/fileUtils';
+import { addLinkToReport, getReverseLink } from '../utils/linkUtils';
 
-export async function linkCommand(source: string, target: string, linkType: string): Promise<void> {
+export async function linkCommand(source: string, target: string, linkType: string = 'Supersedes'): Promise<void> {
   try {
     const config = await getEightDConfig();
     
@@ -87,51 +88,4 @@ async function getReportTitle(filePath: string): Promise<string> {
   return 'Unknown Title';
 }
 
-async function addLinkToReport(filePath: string, linkText: string): Promise<void> {
-  const content = await fs.readFile(filePath, 'utf8');
-  const lines = content.split('\n');
-  
-  // Check if link already exists
-  if (content.includes(linkText)) {
-    return; // Link already exists
-  }
-  
-  // Find the Links section or create it
-  const linksIndex = lines.findIndex(line => line.trim() === '## Links');
-  
-  if (linksIndex !== -1) {
-    // Links section exists, add the new link
-    let insertIndex = linksIndex + 1;
-    
-    // Skip empty lines
-    while (insertIndex < lines.length && lines[insertIndex].trim() === '') {
-      insertIndex++;
-    }
-    
-    lines.splice(insertIndex, 0, `- ${linkText}`);
-  } else {
-    // Create Links section after the status line
-    const statusIndex = lines.findIndex(line => line.includes('**Status:**'));
-    if (statusIndex !== -1) {
-      lines.splice(statusIndex + 1, 0, '', '## Links', '', `- ${linkText}`);
-    }
-  }
-  
-  await fs.writeFile(filePath, lines.join('\n'));
-}
 
-function getReverseLink(linkType: string): string {
-  const reverseMappings: { [key: string]: string } = {
-    'Supersedes': 'Superseded by',
-    'Superseded by': 'Supersedes',
-    'Related to': 'Related to',
-    'Amends': 'Amended by',
-    'Amended by': 'Amends',
-    'Clarifies': 'Clarified by',
-    'Clarified by': 'Clarifies',
-    'Extends': 'Extended by',
-    'Extended by': 'Extends'
-  };
-
-  return reverseMappings[linkType] || 'Related to';
-}
