@@ -32,7 +32,7 @@ export async function getEightDConfig(): Promise<EightDConfig> {
   };
 }
 
-export async function getNextSequenceNumber(): Promise<number> {
+export async function getCurrentSequenceNumber(): Promise<number> {
   const config = await getEightDConfig();
 
   if (!(await fs.pathExists(config.sequenceFile))) {
@@ -47,11 +47,23 @@ export async function getNextSequenceNumber(): Promise<number> {
     await fs.readFile(config.sequenceFile, "utf8"),
     10
   );
+
+  return currentSequence;
+}
+
+export async function incrementSequenceNumber(): Promise<number> {
+  const config = await getEightDConfig();
+  const currentSequence = await getCurrentSequenceNumber();
   const nextSequence = currentSequence + 1;
 
   await fs.writeFile(config.sequenceFile, nextSequence.toString());
 
   return nextSequence;
+}
+
+export async function getNextSequenceNumber(): Promise<number> {
+  const currentSequence = await getCurrentSequenceNumber();
+  return currentSequence + 1;
 }
 
 export function formatSequenceNumber(num: number): string {

@@ -4,6 +4,7 @@ import chalk from "chalk";
 import {
   getEightDConfig,
   getNextSequenceNumber,
+  incrementSequenceNumber,
   generateFileName,
   formatSequenceNumber,
   updateTableOfContents,
@@ -27,18 +28,13 @@ export async function newCommand(
 ): Promise<void> {
   try {
     const config = await getEightDConfig();
-    const sequence = await getNextSequenceNumber();
-    const fileName = generateFileName(sequence, title);
+
+    // Get the next sequence number (but don't increment yet)
+    const predictedSequence = await getNextSequenceNumber();
+    const fileName = generateFileName(predictedSequence, title);
     const filePath = join(config.directory, fileName);
-    const formattedSequence = formatSequenceNumber(sequence);
 
-    // Check if file already exists
-    if (await fs.pathExists(filePath)) {
-      console.error(chalk.red(`Error: File ${fileName} already exists.`));
-      process.exit(1);
-    }
-
-    // Validate template if specified
+    // Validate template first (before incrementing sequence)
     const templateName = options.template || "default";
     if (!(await templateExists(templateName))) {
       console.error(chalk.red(`Error: Template "${templateName}" not found.`));
@@ -47,6 +43,16 @@ export async function newCommand(
       );
       process.exit(1);
     }
+
+    // Check if file already exists
+    if (await fs.pathExists(filePath)) {
+      console.error(chalk.red(`Error: File ${fileName} already exists.`));
+      process.exit(1);
+    }
+
+    // All validations passed, now increment the sequence number
+    const actualSequence = await incrementSequenceNumber();
+    const actualFormattedSequence = formatSequenceNumber(actualSequence);
 
     // Prepare links array
     const links: string[] = [];
@@ -84,7 +90,7 @@ export async function newCommand(
       // Update the superseded report
       await addLinkToReport(
         join(config.directory, supersedeFileName),
-        `Superseded by: [${formattedSequence}: ${title}](./${fileName})`
+        `Superseded by: [${actualFormattedSequence}: ${title}](./${fileName})`
       );
       console.log(
         chalk.green(
@@ -137,13 +143,13 @@ export async function newCommand(
       // Add reverse link to existing report
       await addLinkToReport(
         join(config.directory, linkFileName),
-        `${actualReverseLinkType}: [${formattedSequence}: ${title}](./${fileName})`
+        `${actualReverseLinkType}: [${actualFormattedSequence}: ${title}](./${fileName})`
       );
       console.log(
         chalk.green(
           `Added link between reports ${formatSequenceNumber(
             linkNum
-          )} and ${formattedSequence}.`
+          )} and ${actualFormattedSequence}.`
         )
       );
     }
@@ -151,7 +157,7 @@ export async function newCommand(
     // Generate the report content
     const templateData: CustomTemplateData = {
       title,
-      sequence: formattedSequence,
+      sequence: actualFormattedSequence,
       date: new Date().toISOString().split("T")[0],
       links: links.length > 0 ? links : undefined,
     };
@@ -166,12 +172,12 @@ export async function newCommand(
     console.log(chalk.green(`Created 8D report: ${fileName}`));
 
     // Update table of contents
-    await updateTableOfContents(filePath, title, sequence);
+    await updateTableOfContents(filePath, title, actualSequence);
     console.log(chalk.green("Updated table of contents."));
 
     console.log(
       chalk.blue.bold(
-        `\n✅ 8D Report ${formattedSequence} created successfully!`
+        `\n✅ 8D Report ${actualFormattedSequence} created successfully!`
       )
     );
     console.log(chalk.blue(`File: ${relative(process.cwd(), filePath)}`));
