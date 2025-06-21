@@ -160,23 +160,23 @@ describe("8D Tools Tests", () => {
 
   describe("Utility Functions", () => {
     test("should format sequence numbers correctly", () => {
-      expect(formatSequenceNumber(1)).toBe("0001");
-      expect(formatSequenceNumber(42)).toBe("0042");
-      expect(formatSequenceNumber(999)).toBe("0999");
+      expect(formatSequenceNumber(1)).toBe("1");
+      expect(formatSequenceNumber(42)).toBe("42");
+      expect(formatSequenceNumber(999)).toBe("999");
       expect(formatSequenceNumber(1000)).toBe("1000");
     });
 
     test("should generate valid filenames", () => {
       expect(generateFileName(1, "Product Quality Issue")).toBe(
-        "0001-product-quality-issue.md"
+        "1-product-quality-issue.md"
       );
 
       expect(
         generateFileName(42, "Complex Problem with Special Characters!@#")
-      ).toBe("0042-complex-problem-with-special-characters.md");
+      ).toBe("42-complex-problem-with-special-characters.md");
 
       expect(generateFileName(5, "Multiple   Spaces   and---Dashes")).toBe(
-        "0005-multiple-spaces-and-dashes.md"
+        "5-multiple-spaces-and-dashes.md"
       );
     });
   });

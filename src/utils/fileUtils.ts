@@ -67,7 +67,7 @@ export async function getNextSequenceNumber(): Promise<number> {
 }
 
 export function formatSequenceNumber(num: number): string {
-  return num.toString().padStart(4, "0");
+  return num.toString();
 }
 
 export function generateFileName(sequence: number, title: string): string {

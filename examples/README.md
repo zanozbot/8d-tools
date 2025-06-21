@@ -5,11 +5,13 @@ This directory contains example 8D reports demonstrating the different templates
 ## Available Examples
 
 ### 1. Default Template Example
+
 **File:** `default-template-example.md`  
 **Scenario:** Manufacturing quality issue with adhesive bond failures  
 **Template:** `default` (comprehensive 8D template)
 
 This example demonstrates:
+
 - Complete 8D methodology with all disciplines (D0-D8)
 - Detailed problem analysis and root cause investigation
 - Comprehensive team formation and charter
@@ -17,6 +19,7 @@ This example demonstrates:
 - Proper documentation of lessons learned and celebration
 
 **Key features shown:**
+
 - 5W2H analysis for problem identification
 - Multiple solution evaluation and selection
 - Detailed implementation planning with timelines
@@ -24,11 +27,13 @@ This example demonstrates:
 - Links to related reports
 
 ### 2. Simple Template Example
+
 **File:** `simple-template-example.md`  
 **Scenario:** IT incident with database connection failure  
 **Template:** `simple` (streamlined template)
 
 This example demonstrates:
+
 - Streamlined 8D process for quick resolution
 - Focused problem statement and description
 - Essential team coordination
@@ -36,6 +41,7 @@ This example demonstrates:
 - Efficient documentation for faster incidents
 
 **Key features shown:**
+
 - Concise problem description
 - Immediate containment actions
 - Root cause identification with escape points
@@ -50,24 +56,25 @@ These examples were generated using the 8d-tools CLI commands:
 # Default template example (comprehensive)
 8d new "Product Quality Issue - Manufacturing Defect" -t default
 
-# Simple template example (streamlined)  
+# Simple template example (streamlined)
 8d new "Server Downtime Incident - Database Connection Failure" -t simple -l "1:Supersedes:Superseded by"
 ```
 
 ## Template Comparison
 
-| Aspect | Default Template | Simple Template |
-|--------|------------------|-----------------|
-| **Complexity** | Comprehensive, detailed | Streamlined, focused |
-| **Use Case** | Complex problems, formal investigations | Quick incidents, routine issues |
-| **Time to Complete** | 2-4 hours | 30-60 minutes |
-| **Detail Level** | High - extensive documentation | Medium - essential information |
-| **Team Size** | 5-8 members typical | 3-5 members typical |
-| **Documentation** | Full 8D methodology | Core 8D principles |
+| Aspect               | Default Template                        | Simple Template                 |
+| -------------------- | --------------------------------------- | ------------------------------- |
+| **Complexity**       | Comprehensive, detailed                 | Streamlined, focused            |
+| **Use Case**         | Complex problems, formal investigations | Quick incidents, routine issues |
+| **Time to Complete** | 2-4 hours                               | 30-60 minutes                   |
+| **Detail Level**     | High - extensive documentation          | Medium - essential information  |
+| **Team Size**        | 5-8 members typical                     | 3-5 members typical             |
+| **Documentation**    | Full 8D methodology                     | Core 8D principles              |
 
 ## When to Use Each Template
 
 ### Use Default Template When:
+
 - Problem has significant business impact
 - Root cause is complex or unknown
 - Multiple departments are involved
@@ -76,6 +83,7 @@ These examples were generated using the 8d-tools CLI commands:
 - Long-term prevention is critical
 
 ### Use Simple Template When:
+
 - Problem is well-understood
 - Quick resolution is needed
 - Limited resources available
@@ -86,6 +94,7 @@ These examples were generated using the 8d-tools CLI commands:
 ## Template Features Demonstrated
 
 ### Common Features (Both Templates)
+
 - **Header section** with title, date, status, and links
 - **Problem identification** and clear description
 - **Team formation** with roles and responsibilities
@@ -95,6 +104,7 @@ These examples were generated using the 8d-tools CLI commands:
 - **Review and closure** with lessons learned
 
 ### Default Template Specific Features
+
 - **D0: Plan and prepare** - Prerequisites and initial assessment
 - **5W2H analysis** - Systematic problem investigation
 - **Team charter** - Formal team goals and operating principles
@@ -103,6 +113,7 @@ These examples were generated using the 8d-tools CLI commands:
 - **Celebration section** - Team recognition and knowledge sharing
 
 ### Simple Template Specific Features
+
 - **Streamlined sections** - Combined related activities
 - **Focused documentation** - Essential information only
 - **Quick implementation** - Simplified tracking

@@ -7,8 +7,9 @@ A command-line tool for generating Eight Disciplines (8D) problem-solving report
 The Eight Disciplines (8D) is a problem-solving methodology designed to find the root cause of a problem, devise a short-term fix and implement a long-term solution to prevent recurring problems. Originally developed by Ford Motor Company, it's widely used in manufacturing and quality management.
 
 The eight disciplines are:
+
 - **D0**: Plan and prepare
-- **D1**: Form a team  
+- **D1**: Form a team
 - **D2**: Identify the problem
 - **D3**: Develop interim containment plan
 - **D4**: Verify root causes and escape points
@@ -26,11 +27,13 @@ npm install -g @zanozbot/8d-tools
 ## Quick Start
 
 1. **Initialize 8D directory structure:**
+
    ```bash
    8d init
    ```
 
 2. **Create your first 8D report:**
+
    ```bash
    8d new "Product Quality Issue"
    ```
@@ -45,37 +48,46 @@ For detailed usage instructions, see [docs/USAGE.md](docs/USAGE.md).
 ## Commands
 
 ### `8d help`
+
 Shows comprehensive help information with examples.
 
 ### `8d init [directory]`
+
 Initializes the 8D directory structure.
 
 **Arguments:**
+
 - `directory` (optional): Directory for 8D reports (default: `docs/8d`)
 
 **Creates:**
+
 - `.8d-dir` file pointing to the 8D directory
 - 8D directory with `.8d-sequence.lock` file
 - Table of contents (`README.md`)
 
 **Examples:**
+
 ```bash
 8d init                    # Initialize in docs/8d
 8d init reports/8d         # Initialize in custom directory
 ```
 
 ### `8d new <title> [options]`
+
 Creates a new 8D report with sequential numbering.
 
 **Arguments:**
+
 - `title`: Title of the 8D report
 
 **Options:**
+
 - `-s, --supersede <number>`: Supersede an existing 8D report
 - `-l, --link <link>`: Link to existing report (format: "number:LinkType:ReverseLink")
 - `-t, --template <name>`: Template to use (default: "default")
 
 **Examples:**
+
 ```bash
 8d new "Product Quality Issue"
 8d new "Updated Process" -s 3
@@ -84,14 +96,17 @@ Creates a new 8D report with sequential numbering.
 ```
 
 ### `8d link <source> <target> [linkType]`
+
 Links two existing 8D reports.
 
 **Arguments:**
+
 - `source`: Source 8D report number
 - `target`: Target 8D report number
 - `linkType` (optional): Type of link (default: "Supersedes")
 
 **Examples:**
+
 ```bash
 8d link 1 2              # Uses default "Supersedes"
 8d link 1 2 "Related to"
@@ -99,18 +114,22 @@ Links two existing 8D reports.
 ```
 
 ### `8d template [action] [name] [options]`
+
 Manage 8D report templates.
 
 **Actions:**
+
 - `list`: List all available templates
 - `create <name>`: Create a new custom template
 - `show <name>`: Display template content
 - `delete <name>`: Delete a custom template
 
 **Options for create:**
+
 - `--title <title>`: Set a custom title (default: uses {{title}} placeholder)
 
 **Examples:**
+
 ```bash
 8d template list                                    # List all templates
 8d template create incident                         # Create template with {{title}} placeholder
@@ -143,7 +162,9 @@ project-root/
 ### Built-in Templates
 
 #### Default Template (`default`)
+
 The comprehensive 8D template covering all eight disciplines:
+
 - **Header**: Title, date, status, and links
 - **D0**: Planning and preparation
 - **D1**: Team formation
@@ -156,7 +177,9 @@ The comprehensive 8D template covering all eight disciplines:
 - **D8**: Team celebration and lessons learned
 
 #### Simple Template (`simple`)
+
 A streamlined template for quick problem-solving:
+
 - **Header**: Title, date, status, and links
 - **Problem Description**: Clear problem statement
 - **Root Cause Analysis**: Identify the root cause
@@ -198,8 +221,9 @@ You can create custom templates for specific use cases:
 #### Template Placeholders
 
 Custom templates support these placeholders:
+
 - `{{title}}`: Report title
-- `{{sequence}}`: Report sequence number (e.g., "0001")
+- `{{sequence}}`: Report sequence number (e.g., "1")
 - `{{date}}`: Creation date
 - `{{links}}`: Links section (automatically populated)
 
@@ -213,21 +237,27 @@ Custom templates support these placeholders:
 {{links}}
 
 ## Incident Summary
+
 <!-- Brief description of the incident -->
 
 ## Impact Assessment
+
 <!-- What was affected and how -->
 
 ## Timeline
+
 <!-- Chronological sequence of events -->
 
 ## Root Cause
+
 <!-- Primary cause of the incident -->
 
 ## Resolution
+
 <!-- Steps taken to resolve -->
 
 ## Follow-up Actions
+
 <!-- Preventive measures and monitoring -->
 ```
 
@@ -236,25 +266,33 @@ Custom templates support these placeholders:
 8D-tools supports linking related reports with automatic bidirectional linking:
 
 ### Superseding Reports
+
 ```bash
 8d new "Updated Solution" -s 3
 ```
+
 This creates a new report that supersedes report #3, automatically adding:
+
 - "Supersedes" link in the new report
 - "Superseded by" link in report #3
 
 ### Custom Links
+
 ```bash
 8d new "Related Analysis" -l "2:Amends:Amended by"
 ```
+
 This creates links:
+
 - "Amends" link in the new report pointing to #2
 - "Amended by" link in report #2 pointing to the new report
 
 ### Manual Linking
+
 ```bash
 8d link 1 4 "Related to"
 ```
+
 This adds bidirectional "Related to" links between reports #1 and #4.
 
 ## Best Practices
@@ -268,16 +306,19 @@ This adds bidirectional "Related to" links between reports #1 and #4.
 ## Development
 
 ### Building
+
 ```bash
 npm run prepack
 ```
 
 ### Testing
+
 ```bash
 npm test
 ```
 
 ### Type Checking
+
 ```bash
 npm run types:check
 ```
