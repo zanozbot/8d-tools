@@ -17,42 +17,42 @@ export function generateEightDTemplate(data: TemplateData): string {
 **Date:** ${date}  
 **Status:** Draft
 ${linksSection}
-## D0: Plan and Prepare
+## D0: Plan and prepare
 
-### Problem Background
+### Problem background
 <!-- Describe the background of the problem and why it needs to be solved -->
 
 ### Prerequisites
 <!-- List what is needed before starting the 8D process -->
 
-### Initial Assessment
+### Initial assessment
 <!-- Provide initial assessment of the problem scope and impact -->
 
 ---
 
-## D1: Form a Team
+## D1: Form a team
 
-### Team Members
+### Team members
 <!-- List team members and their roles -->
 
 | Name | Role | Department | Responsibilities |
 |------|------|------------|------------------|
 |      |      |            |                  |
 
-### Team Leader
+### Team leader
 <!-- Identify the team leader -->
 
-### Team Charter
+### Team charter
 <!-- Define team goals, scope, and operating principles -->
 
 ---
 
-## D2: Identify the Problem
+## D2: Identify the problem
 
-### Problem Statement
+### Problem statement
 <!-- Clear, specific description of the problem -->
 
-### 5W2H Analysis
+### 5W2H analysis
 - **Who:** 
 - **What:** 
 - **When:** 
@@ -61,138 +61,138 @@ ${linksSection}
 - **How:** 
 - **How many:** 
 
-### Problem Quantification
+### Problem quantification
 <!-- Quantify the problem with data, metrics, or measurements -->
 
-### Supporting Evidence
+### Supporting evidence
 <!-- Include photos, charts, data, or other evidence -->
 
 ---
 
-## D3: Develop Interim Containment Plan
+## D3: Develop interim containment plan
 
-### Immediate Actions
+### Immediate actions
 <!-- List immediate actions to contain the problem -->
 
-### Containment Verification
+### Containment verification
 <!-- How will you verify the containment is effective? -->
 
-### Customer Protection
+### Customer protection
 <!-- How are customers protected while permanent solution is developed? -->
 
-### Implementation Date
+### Implementation date
 <!-- When was/will the containment be implemented? -->
 
 ---
 
-## D4: Verify Root Causes and Escape Points
+## D4: Verify root causes and escape points
 
-### Root Cause Analysis
+### Root cause analysis
 <!-- Use tools like 5 Whys, Fishbone diagram, etc. -->
 
-#### Potential Root Causes
+#### Potential root causes
 1. 
 2. 
 3. 
 
-#### Root Cause Verification
+#### Root cause verification
 <!-- How were root causes verified? Include data/evidence -->
 
-### Escape Points
+### Escape points
 <!-- Where in the process did the problem escape detection? -->
 
-#### Why Wasn't It Caught?
+#### Why wasn't it caught?
 <!-- Analysis of why existing controls failed -->
 
 ---
 
-## D5: Choose Permanent Corrective Actions
+## D5: Choose permanent corrective actions
 
-### Proposed Solutions
+### Proposed solutions
 <!-- List potential permanent corrective actions -->
 
 1. **Solution 1:**
    - Description:
    - Pros:
    - Cons:
-   - Risk Assessment:
+   - Risk assessment:
 
 2. **Solution 2:**
    - Description:
    - Pros:
    - Cons:
-   - Risk Assessment:
+   - Risk assessment:
 
-### Selected Solution
+### Selected solution
 <!-- Which solution was chosen and why? -->
 
-### Verification Plan
+### Verification plan
 <!-- How will you verify the solution works? -->
 
 ---
 
-## D6: Implement Corrective Actions
+## D6: Implement corrective actions
 
-### Implementation Plan
+### Implementation plan
 <!-- Detailed plan for implementing the permanent corrective action -->
 
 | Action | Responsible | Target Date | Status |
 |--------|-------------|-------------|--------|
 |        |             |             |        |
 
-### Implementation Verification
+### Implementation verification
 <!-- Evidence that implementation was successful -->
 
-### Monitoring Plan
+### Monitoring plan
 <!-- How will ongoing effectiveness be monitored? -->
 
 ---
 
-## D7: Take Preventive Measures
+## D7: Take preventive measures
 
-### System Improvements
+### System improvements
 <!-- What system changes prevent similar problems? -->
 
-### Process Updates
+### Process updates
 <!-- Document any process changes -->
 
-### Training Requirements
+### Training requirements
 <!-- What training is needed to prevent recurrence? -->
 
-### Standard Work Updates
+### Standard work updates
 <!-- How are standard procedures updated? -->
 
 ---
 
-## D8: Celebrate with Your Team
+## D8: Celebrate with your team
 
-### Team Recognition
+### Team recognition
 <!-- How was the team recognized for their work? -->
 
-### Lessons Learned
+### Lessons learned
 <!-- Key lessons learned from this 8D process -->
 
-### Knowledge Sharing
+### Knowledge sharing
 <!-- How will lessons be shared with the organization? -->
 
-### Celebration Activities
+### Celebration activities
 <!-- How did the team celebrate success? -->
 
 ---
 
 ## Summary
 
-### Problem Resolution
+### Problem resolution
 <!-- Brief summary of how the problem was resolved -->
 
-### Key Metrics
+### Key metrics
 <!-- Before/after metrics showing improvement -->
 
-### Next Steps
+### Next steps
 <!-- Any follow-up actions or monitoring required -->
 
 ---
 
-*This 8D report was generated using [8d-tools](https://github.com/zanozbot/8d-tools)*
+*This 8D report was generated using [8d-tools](https://github.com/zanozbot/8d-tools).*
 `;
 }

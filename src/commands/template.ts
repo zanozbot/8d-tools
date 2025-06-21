@@ -99,10 +99,6 @@ async function createTemplate(templateName: string, customTitle?: string): Promi
 
   console.log(chalk.green(`✅ Template "${templateName}" created successfully!`));
   console.log(chalk.blue(`Location: ${path.relative(process.cwd(), templatePath)}`));
-
-  if (!customTitle) {
-    console.log(chalk.yellow('\nNote: This template uses {{title}} placeholder. You can edit the file to customize it further.'));
-  }
 }
 
 async function showTemplate(templateName: string): Promise<void> {
@@ -185,9 +181,10 @@ function generateCustomTemplate(title: string): string {
 **Date:** {{date}}  
 **Status:** Draft
 {{links}}
+<!-- Add your custom template content here -->
 
 ---
 
-*This 8D report was generated using [8d-tools](https://github.com/zanozbot/8d-tools)*
+*This 8D report was generated using [8d-tools](https://github.com/zanozbot/8d-tools).*
 `;
 }
