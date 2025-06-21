@@ -13,13 +13,13 @@ export function helpCommand(): void {
   console.log('  link <source> <target>   Link two existing 8D reports\n');
   
   console.log(chalk.yellow('EXAMPLES:'));
-  console.log('  8d help                                    # Show help');
-  console.log('  8d init                                    # Initialize in docs/8d');
-  console.log('  8d init reports/8d                         # Initialize in custom directory');
-  console.log('  8d new "Product quality issue"             # Create new 8D report');
-  console.log('  8d new "Updated process" -s 3              # Create report superseding #3');
+  console.log('  8d help                                              # Show help');
+  console.log('  8d init                                              # Initialize in docs/8d');
+  console.log('  8d init reports/8d                                   # Initialize in custom directory');
+  console.log('  8d new "Product quality issue"                       # Create new 8D report');
+  console.log('  8d new "Updated process" -s 3                        # Create report superseding #3');
   console.log('  8d new "Related issue" -l "2:Related to:Related to"  # Create linked report');
-  console.log('  8d link 1 2 "Supersedes"                   # Link report 1 to report 2\n');
+  console.log('  8d link 1 2 "Supersedes"                             # Link report 1 to report 2\n');
   
   console.log(chalk.yellow('OPTIONS for new command:'));
   console.log('  -s, --supersede <number>     Supersede an existing 8D report');

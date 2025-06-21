@@ -65,7 +65,7 @@ export function generateFileName(sequence: number, title: string): string {
 
 export async function updateTableOfContents(reportPath: string, title: string, sequence: number): Promise<void> {
   const config = await getEightDConfig();
-  
+
   if (!await fs.pathExists(config.tocFile)) {
     return;
   }
@@ -73,26 +73,64 @@ export async function updateTableOfContents(reportPath: string, title: string, s
   const tocContent = await fs.readFile(config.tocFile, 'utf8');
   const fileName = path.basename(reportPath);
   const formattedSequence = formatSequenceNumber(sequence);
-  const newEntry = `- [${formattedSequence}: ${title}](./${fileName})`;
 
-  // Find the "## Reports" section and add the new entry
   const lines = tocContent.split('\n');
   const reportsIndex = lines.findIndex(line => line.trim() === '## Reports');
-  
+
   if (reportsIndex === -1) {
     return;
   }
 
-  // Find where to insert the new entry (after "## Reports" but before next section or end)
-  let insertIndex = reportsIndex + 1;
-  
-  // Skip the "No reports" message if it exists
-  if (lines[insertIndex + 1] && lines[insertIndex + 1].includes('No reports have been created yet')) {
-    lines.splice(insertIndex + 1, 2); // Remove the "No reports" line and empty line
+  // Find the next section after Reports
+  let nextSectionIndex = lines.length;
+  for (let i = reportsIndex + 1; i < lines.length; i++) {
+    if (lines[i].startsWith('## ') && lines[i].trim() !== '## Reports') {
+      nextSectionIndex = i;
+      break;
+    }
   }
 
-  // Insert the new entry
-  lines.splice(insertIndex + 1, 0, '', newEntry);
+  // Extract everything before Reports section, after Reports section
+  const beforeReports = lines.slice(0, reportsIndex + 1);
+  const afterReports = lines.slice(nextSectionIndex);
 
-  await fs.writeFile(config.tocFile, lines.join('\n'));
+  // Collect existing report entries (skip "No reports" message)
+  const reportEntries: Array<{line: string, sequence: number}> = [];
+
+  for (let i = reportsIndex + 1; i < nextSectionIndex; i++) {
+    const line = lines[i];
+    // Skip "No reports" message and empty lines
+    if (line.includes('No reports have been created yet') || line.trim() === '') {
+      continue;
+    }
+    if (line.startsWith('- [')) {
+      const match = line.match(/^\- \[(\d+):/);
+      if (match) {
+        reportEntries.push({
+          line: line,
+          sequence: parseInt(match[1], 10)
+        });
+      }
+    }
+  }
+
+  // Add the new entry
+  reportEntries.push({
+    line: `- [${formattedSequence}: ${title}](./${fileName})`,
+    sequence: sequence
+  });
+
+  // Sort by sequence number (chronological order)
+  reportEntries.sort((a, b) => a.sequence - b.sequence);
+
+  // Rebuild the file
+  const newLines = [
+    ...beforeReports,
+    '', // Empty line after "## Reports"
+    ...reportEntries.map(entry => entry.line),
+    '', // Empty line before next section
+    ...afterReports
+  ];
+
+  await fs.writeFile(config.tocFile, newLines.join('\n'));
 }
