@@ -6,6 +6,10 @@ import * as os from 'os';
 import { generateEightDTemplate } from '../src/templates/default';
 import { generateSimpleTemplate } from '../src/templates/simple';
 import { formatSequenceNumber, generateFileName } from '../src/utils/fileUtils';
+import {
+  generateReportFromTemplate
+} from '../src/utils/templateUtils';
+import { getReverseLink } from '../src/utils/linkUtils';
 
 describe('8D Tools Tests', () => {
 
@@ -70,6 +74,65 @@ describe('8D Tools Tests', () => {
 
       assert.ok(result.includes('## Links'));
       assert.ok(result.includes('- Related to: [0003: Previous Simple Problem](./0003-previous-simple-problem.md)'));
+    });
+  });
+
+  describe('Template Utilities (Unit Tests)', () => {
+    test('should generate report from default template directly', async () => {
+      const data = {
+        title: 'Test Report',
+        sequence: '0001',
+        date: '2025-01-01',
+        links: ['- Related to: [0002: Other Report](./0002-other-report.md)']
+      };
+
+      const result = await generateReportFromTemplate('default', data);
+
+      assert.ok(result.includes('# 0001: Test Report'));
+      assert.ok(result.includes('**Date:** 2025-01-01'));
+      assert.ok(result.includes('## D0: Plan and Prepare'));
+      assert.ok(result.includes('## Links'));
+      assert.ok(result.includes('- Related to: [0002: Other Report](./0002-other-report.md)'));
+    });
+
+    test('should generate report from simple template directly', async () => {
+      const data = {
+        title: 'Simple Test',
+        sequence: '0002',
+        date: '2025-01-01'
+      };
+
+      const result = await generateReportFromTemplate('simple', data);
+
+      assert.ok(result.includes('# 0002: Simple Test'));
+      assert.ok(result.includes('**Date:** 2025-01-01'));
+      assert.ok(result.includes('## Problem Description'));
+      assert.ok(result.includes('## Root Cause Analysis'));
+      assert.ok(result.includes('## Solution'));
+      assert.ok(result.includes('## Prevention'));
+      assert.ok(result.includes('## Lessons Learned'));
+    });
+
+    // Note: Testing nonexistent templates requires 8D directory setup
+    // This is covered in integration tests
+  });
+
+  describe('Link Utilities', () => {
+    test('should return correct reverse links', () => {
+      assert.strictEqual(getReverseLink('Supersedes'), 'Superseded by');
+      assert.strictEqual(getReverseLink('Superseded by'), 'Supersedes');
+      assert.strictEqual(getReverseLink('Related to'), 'Related to');
+      assert.strictEqual(getReverseLink('Amends'), 'Amended by');
+      assert.strictEqual(getReverseLink('Amended by'), 'Amends');
+      assert.strictEqual(getReverseLink('Clarifies'), 'Clarified by');
+      assert.strictEqual(getReverseLink('Clarified by'), 'Clarifies');
+      assert.strictEqual(getReverseLink('Extends'), 'Extended by');
+      assert.strictEqual(getReverseLink('Extended by'), 'Extends');
+    });
+
+    test('should return default reverse link for unknown types', () => {
+      assert.strictEqual(getReverseLink('Unknown Type'), 'Related to');
+      assert.strictEqual(getReverseLink('Custom Link'), 'Related to');
     });
   });
 
