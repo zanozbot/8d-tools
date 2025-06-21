@@ -7,10 +7,9 @@ export interface SimpleTemplateData {
 
 export function generateSimpleTemplate(data: SimpleTemplateData): string {
   const { title, sequence, date, links = [] } = data;
-  
-  const linksSection = links.length > 0 
-    ? `\n## Links\n\n${links.join('\n')}`
-    : '';
+
+  const linksSection =
+    links.length > 0 ? `\n## Links\n\n${links.join("\n")}` : "";
 
   return `# ${sequence}: ${title}
 

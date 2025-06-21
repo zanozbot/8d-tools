@@ -7,10 +7,9 @@ export interface TemplateData {
 
 export function generateEightDTemplate(data: TemplateData): string {
   const { title, sequence, date, links = [] } = data;
-  
-  const linksSection = links.length > 0 
-    ? `\n## Links\n\n${links.join('\n')}`
-    : '';
+
+  const linksSection =
+    links.length > 0 ? `\n## Links\n\n${links.join("\n")}` : "";
 
   return `# ${sequence}: ${title}
 

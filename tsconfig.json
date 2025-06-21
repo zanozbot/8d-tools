@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "allowArbitraryExtensions": true,
+    "allowSyntheticDefaultImports": true,
     "declaration": true,
     "declarationMap": true,
-    "lib": ["es2023"],
-    "module": "NodeNext",
+    "esModuleInterop": true,
+    "module": "ES2022",
+    "moduleResolution": "Node",
     "outDir": "./dist",
     "resolveJsonModule": true,
-    "rewriteRelativeImportExtensions": true,
-    "target": "es2022"
+    "strict": true,
+    "target": "ES2022"
   },
-  // These may be different for your repo:
-  "include": ["./src", "./test"],
-  "exclude": ["**/*/*.test.*", "**/*.fixture.*"]
+  "include": ["./src/**/*"],
+  "exclude": ["./test/**/*", "./dist/**/*", "./node_modules/**/*"]
 }
