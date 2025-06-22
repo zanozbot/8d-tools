@@ -1,2 +1,9 @@
+.github
+.vscode
+examples
 src
 test
+.nvmrc
+tsconfig.json
+vite.config.ts
+vitest.config.ts
