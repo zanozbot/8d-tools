@@ -244,14 +244,18 @@ The comprehensive 8D template covering all eight disciplines:
 
 #### Simple Template (`simple`)
 
-A streamlined template for quick problem-solving:
+A streamlined template for quick problem-solving that follows the full 8D structure with simplified content:
 
 - **Header**: Title, date, status, and links
-- **Problem Description**: Clear problem statement
-- **Root Cause Analysis**: Identify the root cause
-- **Solution**: Describe the implemented solution
-- **Prevention**: Measures to prevent recurrence
-- **Lessons Learned**: Key takeaways
+- **D0**: Planning and preparation
+- **D1**: Team members (simplified table format)
+- **D2**: Problem statement and description
+- **D3**: Interim containment action
+- **D4**: Root cause and escape points
+- **D5**: Permanent corrective action
+- **D6**: Implementation plan
+- **D7**: Preventive measures
+- **D8**: Review and closure
 
 ### Using Templates
 
