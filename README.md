@@ -20,11 +20,31 @@ The eight disciplines are:
 
 ## Installation
 
+### Global Installation
+
 ```bash
 npm install -g @zanozbot/8d-tools
 ```
 
+### Using without Installation
+
+You can also use 8d-tools directly without installing it globally:
+
+**With npx (Node.js):**
+
+```bash
+npx @zanozbot/8d-tools <command>
+```
+
+**With bunx (Bun):**
+
+```bash
+bunx @zanozbot/8d-tools <command>
+```
+
 ## Quick Start
+
+### With Global Installation
 
 1. **Initialize 8D directory structure:**
 
@@ -41,6 +61,31 @@ npm install -g @zanozbot/8d-tools
 3. **View help for all commands:**
    ```bash
    8d help
+   ```
+
+### With npx/bunx (No Installation Required)
+
+1. **Initialize 8D directory structure:**
+
+   ```bash
+   npx @zanozbot/8d-tools init
+   # or
+   bunx @zanozbot/8d-tools init
+   ```
+
+2. **Create your first 8D report:**
+
+   ```bash
+   npx @zanozbot/8d-tools new "Product Quality Issue"
+   # or
+   bunx @zanozbot/8d-tools new "Product Quality Issue"
+   ```
+
+3. **View help for all commands:**
+   ```bash
+   npx @zanozbot/8d-tools help
+   # or
+   bunx @zanozbot/8d-tools help
    ```
 
 For detailed usage instructions, see [docs/USAGE.md](docs/USAGE.md).
@@ -68,8 +113,13 @@ Initializes the 8D directory structure.
 **Examples:**
 
 ```bash
+# With global installation
 8d init                    # Initialize in docs/8d
 8d init reports/8d         # Initialize in custom directory
+
+# With npx/bunx
+npx @zanozbot/8d-tools init
+bunx @zanozbot/8d-tools init reports/8d
 ```
 
 ### `8d new <title> [options]`
@@ -89,10 +139,15 @@ Creates a new 8D report with sequential numbering.
 **Examples:**
 
 ```bash
+# With global installation
 8d new "Product Quality Issue"
 8d new "Updated Process" -s 3
 8d new "Related Issue" -l "2:Related to:Related to"
 8d new "Simple incident" -t simple
+
+# With npx/bunx
+npx @zanozbot/8d-tools new "Product Quality Issue"
+bunx @zanozbot/8d-tools new "Updated Process" -s 3
 ```
 
 ### `8d link <source> <target> [linkType]`
@@ -108,9 +163,14 @@ Links two existing 8D reports.
 **Examples:**
 
 ```bash
+# With global installation
 8d link 1 2              # Uses default "Supersedes"
 8d link 1 2 "Related to"
 8d link 3 4 "Supersedes"
+
+# With npx/bunx
+npx @zanozbot/8d-tools link 1 2
+bunx @zanozbot/8d-tools link 1 2 "Related to"
 ```
 
 ### `8d template [action] [name] [options]`
@@ -131,11 +191,17 @@ Manage 8D report templates.
 **Examples:**
 
 ```bash
+# With global installation
 8d template list                                    # List all templates
 8d template create incident                         # Create template with {{title}} placeholder
 8d template create security --title "Security Incident"  # Create with fixed title
 8d template show simple                             # Display simple template
 8d template delete incident                         # Delete custom template
+
+# With npx/bunx
+npx @zanozbot/8d-tools template list
+bunx @zanozbot/8d-tools template create incident
+bunx @zanozbot/8d-tools template show simple
 ```
 
 ## File Structure
@@ -190,14 +256,15 @@ A streamlined template for quick problem-solving:
 ### Using Templates
 
 ```bash
-# Use default template (comprehensive 8D)
-8d new "Complex Quality Issue"
+# With global installation
+8d new "Complex Quality Issue"              # Use default template (comprehensive 8D)
+8d new "Simple incident" -t simple          # Use simple template (streamlined)
+8d template list                            # List available templates
 
-# Use simple template (streamlined)
-8d new "Simple incident" -t simple
-
-# List available templates
-8d template list
+# With npx/bunx
+npx @zanozbot/8d-tools new "Complex Quality Issue"
+bunx @zanozbot/8d-tools new "Simple incident" -t simple
+npx @zanozbot/8d-tools template list
 ```
 
 ### Custom Templates
@@ -205,17 +272,16 @@ A streamlined template for quick problem-solving:
 You can create custom templates for specific use cases:
 
 ```bash
-# Create a new custom template
-8d template create incident
+# With global installation
+8d template create incident                         # Create a new custom template
+8d template create security --title "Security Incident Report"  # Create with a fixed title
+8d template show incident                           # View template content
+8d template delete incident                         # Delete custom template
 
-# Create with a fixed title
-8d template create security --title "Security Incident Report"
-
-# View template content
-8d template show incident
-
-# Delete custom template
-8d template delete incident
+# With npx/bunx
+npx @zanozbot/8d-tools template create incident
+bunx @zanozbot/8d-tools template create security --title "Security Incident Report"
+npx @zanozbot/8d-tools template show incident
 ```
 
 #### Template Placeholders
@@ -268,7 +334,11 @@ Custom templates support these placeholders:
 ### Superseding Reports
 
 ```bash
+# With global installation
 8d new "Updated Solution" -s 3
+
+# With npx/bunx
+npx @zanozbot/8d-tools new "Updated Solution" -s 3
 ```
 
 This creates a new report that supersedes report #3, automatically adding:
@@ -279,7 +349,11 @@ This creates a new report that supersedes report #3, automatically adding:
 ### Custom Links
 
 ```bash
+# With global installation
 8d new "Related Analysis" -l "2:Amends:Amended by"
+
+# With npx/bunx
+npx @zanozbot/8d-tools new "Related Analysis" -l "2:Amends:Amended by"
 ```
 
 This creates links:
@@ -290,7 +364,11 @@ This creates links:
 ### Manual Linking
 
 ```bash
+# With global installation
 8d link 1 4 "Related to"
+
+# With npx/bunx
+npx @zanozbot/8d-tools link 1 4 "Related to"
 ```
 
 This adds bidirectional "Related to" links between reports #1 and #4.
