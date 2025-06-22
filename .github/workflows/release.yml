@@ -1,0 +1,44 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_type:
+        description: "Version type (patch, minor, major)"
+        required: true
+        default: "patch"
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          registry-url: "https://registry.npmjs.org"
+
+      - run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Create new version
+        id: version
+        run: |
+          npm version ${{ github.event.inputs.version_type }} -m "ci: release %s"
+          echo "new_version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Create tag
+        run: |
+          git tag @zanozbot/8d-tools@${{ steps.version.outputs.new_version }}
+          git push origin @zanozbot/8d-tools@${{ steps.version.outputs.new_version }}
+          git push
