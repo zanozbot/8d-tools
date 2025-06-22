@@ -1,4 +1,4 @@
-name: Create Release
+name: Create a release and publish to npm
 
 on:
   workflow_dispatch:
@@ -31,6 +31,11 @@ jobs:
       - name: Run tests
         run: npm test
 
+      - name: Configure Git
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
       - name: Create new version
         id: version
         run: |
@@ -42,3 +47,29 @@ jobs:
           git tag @zanozbot/8d-tools@${{ steps.version.outputs.new_version }}
           git push origin @zanozbot/8d-tools@${{ steps.version.outputs.new_version }}
           git push
+
+  publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          registry-url: "https://registry.npmjs.org"
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Build package
+        run: npm run build
+
+      - name: Publish to npm
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
