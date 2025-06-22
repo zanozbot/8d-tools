@@ -1,6 +1,6 @@
 {
   "name": "@zanozbot/8d-tools",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "A command-line tool for generating Eight Disciplines (8D) problem-solving reports from customizable templates.",
   "scripts": {
