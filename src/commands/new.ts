@@ -7,6 +7,7 @@ import {
   incrementSequenceNumber,
   generateFileName,
   formatSequenceNumber,
+  formatSequenceNumberForFilename,
   updateTableOfContents,
 } from "../utils/fileUtils";
 import {
@@ -191,7 +192,7 @@ async function findReportByNumber(
   directory: string,
   number: number
 ): Promise<string | null> {
-  const formattedNumber = formatSequenceNumber(number);
+  const formattedNumber = formatSequenceNumberForFilename(number);
   const files = await fs.readdir(directory);
 
   for (const file of files) {

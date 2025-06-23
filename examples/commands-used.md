@@ -153,14 +153,14 @@ Examples:
 8d-tools automatically generates filenames using this pattern:
 
 ```
-<sequence>-<title-kebab-case>.md
+<zero-padded-sequence>-<title-kebab-case>.md
 ```
 
 Examples:
 
-- `1-product-quality-issue-manufacturing-defect.md`
-- `2-server-downtime-incident-database-connection-failure.md`
-- `3-customer-complaint-response-delay.md`
+- `0001-product-quality-issue-manufacturing-defect.md`
+- `0002-server-downtime-incident-database-connection-failure.md`
+- `0003-customer-complaint-response-delay.md`
 
 ## Directory Structure
 

@@ -293,9 +293,11 @@ npx @zanozbot/8d-tools template show incident
 Custom templates support these placeholders:
 
 - `{{title}}`: Report title
-- `{{sequence}}`: Report sequence number (e.g., "1")
+- `{{sequence}}`: Report sequence number for titles (e.g., "1", "2", "3")
 - `{{date}}`: Creation date
 - `{{links}}`: Links section (automatically populated)
+
+Note: Filenames use zero-padded sequence numbers (0001, 0002, etc.) while titles use simple numbers (1, 2, 3).
 
 #### Example Custom Template
 

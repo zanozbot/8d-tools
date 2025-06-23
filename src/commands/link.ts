@@ -1,7 +1,11 @@
 import fs from "fs-extra";
 import { join } from "path";
 import chalk from "chalk";
-import { getEightDConfig, formatSequenceNumber } from "../utils/fileUtils";
+import {
+  getEightDConfig,
+  formatSequenceNumber,
+  formatSequenceNumberForFilename,
+} from "../utils/fileUtils";
 import { addLinkToReport, getReverseLink } from "../utils/linkUtils";
 
 export async function linkCommand(
@@ -96,7 +100,7 @@ async function findReportByNumber(
   directory: string,
   number: number
 ): Promise<string | null> {
-  const formattedNumber = formatSequenceNumber(number);
+  const formattedNumber = formatSequenceNumberForFilename(number);
   const files = await fs.readdir(directory);
 
   for (const file of files) {

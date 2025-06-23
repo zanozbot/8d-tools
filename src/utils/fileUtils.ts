@@ -70,8 +70,12 @@ export function formatSequenceNumber(num: number): string {
   return num.toString();
 }
 
+export function formatSequenceNumberForFilename(num: number): string {
+  return num.toString().padStart(4, "0");
+}
+
 export function generateFileName(sequence: number, title: string): string {
-  const formattedSequence = formatSequenceNumber(sequence);
+  const formattedSequence = formatSequenceNumberForFilename(sequence);
   const slug = title
     .toLowerCase()
     .replace(/[^a-z0-9\s-]/g, "")

@@ -4,7 +4,11 @@ import { join } from "path";
 import { tmpdir } from "os";
 import { generateEightDTemplate } from "../src/templates/default";
 import { generateSimpleTemplate } from "../src/templates/simple";
-import { formatSequenceNumber, generateFileName } from "../src/utils/fileUtils";
+import {
+  formatSequenceNumber,
+  formatSequenceNumberForFilename,
+  generateFileName,
+} from "../src/utils/fileUtils";
 import { generateReportFromTemplate } from "../src/utils/templateUtils";
 import { getReverseLink } from "../src/utils/linkUtils";
 
@@ -159,24 +163,31 @@ describe("8D Tools Tests", () => {
   });
 
   describe("Utility Functions", () => {
-    test("should format sequence numbers correctly", () => {
+    test("should format sequence numbers correctly for titles", () => {
       expect(formatSequenceNumber(1)).toBe("1");
       expect(formatSequenceNumber(42)).toBe("42");
       expect(formatSequenceNumber(999)).toBe("999");
       expect(formatSequenceNumber(1000)).toBe("1000");
     });
 
-    test("should generate valid filenames", () => {
+    test("should format sequence numbers correctly for filenames", () => {
+      expect(formatSequenceNumberForFilename(1)).toBe("0001");
+      expect(formatSequenceNumberForFilename(42)).toBe("0042");
+      expect(formatSequenceNumberForFilename(999)).toBe("0999");
+      expect(formatSequenceNumberForFilename(1000)).toBe("1000");
+    });
+
+    test("should generate valid filenames with zero-padded numbers", () => {
       expect(generateFileName(1, "Product Quality Issue")).toBe(
-        "1-product-quality-issue.md"
+        "0001-product-quality-issue.md"
       );
 
       expect(
         generateFileName(42, "Complex Problem with Special Characters!@#")
-      ).toBe("42-complex-problem-with-special-characters.md");
+      ).toBe("0042-complex-problem-with-special-characters.md");
 
       expect(generateFileName(5, "Multiple   Spaces   and---Dashes")).toBe(
-        "5-multiple-spaces-and-dashes.md"
+        "0005-multiple-spaces-and-dashes.md"
       );
     });
   });
