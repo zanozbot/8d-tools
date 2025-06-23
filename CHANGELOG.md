@@ -5,6 +5,39 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2025-06-23
+
+### Changed
+
+- **File naming convention**: Updated filenames to use zero-padded sequence numbers (0001, 0002, 0003, etc.) while keeping titles with simple numbers (1, 2, 3)
+- **Template header formatting**: Added bullet points for bold items in header sections to prevent them from appearing on one line
+  - Date and Status now display as `- **Date:** ...` and `- **Status:** ...`
+  - Applied to both default and simple templates
+
+### Added
+
+- **New formatting functions**:
+  - `formatSequenceNumber()` for titles and display (returns 1, 2, 3)
+  - `formatSequenceNumberForFilename()` for filenames (returns 0001, 0002, 0003)
+- **Comprehensive documentation**: Created missing `docs/USAGE.md` with detailed usage guide covering:
+  - Complete command reference with examples
+  - Template system documentation
+  - Linking strategies and best practices
+  - File organization and naming conventions
+  - Troubleshooting guide
+  - Advanced usage scenarios
+
+### Fixed
+
+- **File searching**: Updated `findReportByNumber()` functions in both `new.ts` and `link.ts` to correctly search for files using zero-padded format
+- **Test coverage**: Updated tests to verify both filename and title formatting functions work correctly
+
+### Technical
+
+- Separated sequence number formatting logic for better maintainability
+- Enhanced test suite with additional formatting verification
+- Updated documentation to reflect new filename patterns
+
 ## [1.0.1] - 2025-06-22
 
 ### Fixed
