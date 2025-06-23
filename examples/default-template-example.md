@@ -1,7 +1,7 @@
 # 1: Product Quality Issue - Manufacturing Defect
 
-**Date:** 2024-12-15  
-**Status:** Completed
+- **Date:** 2024-12-15
+- **Status:** Completed
 
 ## Links
 
@@ -45,9 +45,9 @@ Sarah Johnson (Quality Assurance Manager) - 10 years experience in quality manag
 
 ### Team charter
 
-**Goal:** Identify root cause of increased defect rate and implement permanent corrective action within 2 weeks.
-**Scope:** Products manufactured December 8-12, 2024, focusing on adhesive bonding process.
-**Operating principles:** Daily team meetings at 9 AM, data-driven decisions, open communication with all stakeholders.
+- **Goal:** Identify root cause of increased defect rate and implement permanent corrective action within 2 weeks.
+- **Scope:** Products manufactured December 8-12, 2024, focusing on adhesive bonding process.
+- **Operating principles:** Daily team meetings at 9 AM, data-driven decisions, open communication with all stakeholders.
 
 ---
 

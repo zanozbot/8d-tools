@@ -1,7 +1,7 @@
 # 3: Server Downtime Incident - Database Connection Failure
 
-**Date:** 2024-12-20
-**Status:** Completed
+- **Date:** 2024-12-20
+- **Status:** Completed
 
 ## Links
 
@@ -11,11 +11,11 @@
 
 <!-- Gather data, feedback, and prerequisites required to solve the problem. -->
 
-**Problem discovered:** December 20, 2024, 2:15 PM EST
-**Impact:** Customer-facing web application unavailable for 45 minutes
-**Stakeholders involved:** DevOps team, Database administrators, Customer support
-**Data sources:** Server logs, monitoring alerts, database performance metrics
-**Prerequisites:** Access to production environment, database diagnostic tools
+- **Problem discovered:** December 20, 2024, 2:15 PM EST
+- **Impact:** Customer-facing web application unavailable for 45 minutes
+- **Stakeholders involved:** DevOps team, Database administrators, Customer support
+- **Data sources:** Server logs, monitoring alerts, database performance metrics
+- **Prerequisites:** Access to production environment, database diagnostic tools
 
 ## D1: Team members
 

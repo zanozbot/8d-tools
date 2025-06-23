@@ -13,8 +13,8 @@ export function generateEightDTemplate(data: TemplateData): string {
 
   return `# ${sequence}: ${title}
 
-**Date:** ${date}  
-**Status:** Draft
+- **Date:** ${date}
+- **Status:** Draft
 ${linksSection}
 ## D0: Plan and prepare
 

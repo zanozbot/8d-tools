@@ -6,9 +6,9 @@ This directory contains example 8D reports demonstrating the different templates
 
 ### 1. Default Template Example
 
-**File:** `default-template-example.md`  
-**Scenario:** Manufacturing quality issue with adhesive bond failures  
-**Template:** `default` (comprehensive 8D template)
+- **File:** `default-template-example.md`
+- **Scenario:** Manufacturing quality issue with adhesive bond failures
+- **Template:** `default` (comprehensive 8D template)
 
 This example demonstrates:
 
@@ -28,9 +28,9 @@ This example demonstrates:
 
 ### 2. Simple Template Example
 
-**File:** `simple-template-example.md`  
-**Scenario:** IT incident with database connection failure  
-**Template:** `simple` (streamlined template)
+- **File:** `simple-template-example.md`
+- **Scenario:** IT incident with database connection failure
+- **Template:** `simple` (streamlined template)
 
 This example demonstrates:
 

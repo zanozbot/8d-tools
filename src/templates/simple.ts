@@ -13,8 +13,8 @@ export function generateSimpleTemplate(data: SimpleTemplateData): string {
 
   return `# ${sequence}: ${title}
 
-**Date:** ${date}
-**Status:** Draft
+- **Date:** ${date}
+- **Status:** Draft
 ${linksSection}
 ## D0: Planning
 <!-- Gather data, feedback, and prerequisites required to solve the problem. -->
